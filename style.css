@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+  font-family: poppins, sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#message {
+  margin-block: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  height: 40px;
+  width: 300px;
+  text-indent: 10px;
+  outline: none;
+}
+
+#send {
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgb(63, 63, 63);
+  font-size: 14px;
+  color: white;
+}
+
+.message {
+  background: #0078FF;
+  color: white;
+  width: max-content;
+  padding: 10px;
+  border-radius: 10px;
+  margin-block: 5px;
+}
+
+.messages {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.me {
+  align-self: flex-end;
+  background: rgb(63, 63, 63);
+}

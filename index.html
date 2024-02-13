@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Chat Room</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Chat Room</h1>
+      <input type="text" placeholder="Enter your message" id="message" />
+      <button id="send">Send</button>
+    </div>
+    <div class="messages"></div>
+    <script type="module">
+      import { io } from 'https://cdn.socket.io/4.7.4/socket.io.esm.min.js';
+      const socket = io('http://localhost:3000');
+      const message = document.querySelector('#message');
+      const send = document.querySelector('#send');
+      const messagesContainer = document.querySelector('.messages');
+
+      function scrollToBottom() {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      socket.on('message', (data) => {
+        console.log(data, 'DATA');
+        const parsedContent = JSON.parse(data);
+        const div = document.createElement('div');
+        div.classList.add('message');
+        if (parsedContent.id === socket.id) {
+          div.classList.add('me');
+        }
+        div.innerText = parsedContent.msg;
+        document.querySelector('.messages').appendChild(div);
+        scrollToBottom();
+      });
+
+      send.addEventListener('click', () => {
+        if (!message.value) return;
+        socket.emit('message', message.value);
+        message.value = '';
+        message.focus();
+      });
+    </script>
+  </body>
+</html>
